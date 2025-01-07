@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>空间调制（Spatial Modulation） | 幽乐净土</title><meta name="author" content="huangnv"><meta name="copyright" content="huangnv"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言今天准备复现一篇 Spatial Modulation A New Low Complexity Spectral Efficiency Enhancing Technique 中的空间调制，这篇文章首先提出了空间调制的做法 虽然没有进行数学分析，只进行了模型仿真但是启发了后续的科研工作者在此基础上工作，给出了更好的检测器。后来在此基础上的GSM正是2G通信的技术基础。 介绍空间调制（Spat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="空间调制（Spatial Modulation）">
+<meta property="og:url" content="http://example.com/2025/01/07/%E7%A9%BA%E9%97%B4%E8%B0%83%E5%88%B6(Spatial%20Modulation)/index.html">
+<meta property="og:site_name" content="幽乐净土">
+<meta property="og:description" content="前言今天准备复现一篇 Spatial Modulation A New Low Complexity Spectral Efficiency Enhancing Technique 中的空间调制，这篇文章首先提出了空间调制的做法 虽然没有进行数学分析，只进行了模型仿真但是启发了后续的科研工作者在此基础上工作，给出了更好的检测器。后来在此基础上的GSM正是2G通信的技术基础。 介绍空间调制（Spat">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/20210325202410_ac20a.jpg">
+<meta property="article:published_time" content="2025-01-07T04:00:00.000Z">
+<meta property="article:modified_time" content="2025-01-07T05:15:11.724Z">
+<meta property="article:author" content="huangnv">
+<meta property="article:tag" content="matlab">
+<meta property="article:tag" content="Spatial Modulation">
+<meta property="article:tag" content="信道编码">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/20210325202410_ac20a.jpg"><link rel="shortcut icon" href="/img/20210325202410_ac20a.jpg"><link rel="canonical" href="http://example.com/2025/01/07/%E7%A9%BA%E9%97%B4%E8%B0%83%E5%88%B6(Spatial%20Modulation)/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '空间调制（Spatial Modulation）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-01-07 13:15:11'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/20210325202410_ac20a.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 技术</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/qianrushi"><span> 嵌入式</span></a></li><li><a class="site-page child" href="/fpga"><span> fpga</span></a></li><li><a class="site-page child" href="/dianlu"><span> 电路调试</span></a></li><li><a class="site-page child" href="/xinhaoyuxitong"><span> 信号与系统</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/02b83646ab361feff3565995ae6e6bf5042ef99a.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="幽乐净土"><span class="site-name">幽乐净土</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 技术</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/qianrushi"><span> 嵌入式</span></a></li><li><a class="site-page child" href="/fpga"><span> fpga</span></a></li><li><a class="site-page child" href="/dianlu"><span> 电路调试</span></a></li><li><a class="site-page child" href="/xinhaoyuxitong"><span> 信号与系统</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">空间调制（Spatial Modulation）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-07T04:00:00.000Z" title="发表于 2025-01-07 12:00:00">2025-01-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-07T05:15:11.724Z" title="更新于 2025-01-07 13:15:11">2025-01-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/">通信原理</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="空间调制（Spatial Modulation）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天准备复现一篇 <strong>Spatial Modulation A New Low Complexity Spectral Efficiency Enhancing Technique</strong> 中的空间调制，这篇文章首先提出了空间调制的做法 虽然没有进行数学分析，只进行了模型仿真但是启发了后续的科研工作者在此基础上工作，给出了更好的检测器。后来在此基础上的GSM正是2G通信的技术基础。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>空间调制（Spatial Modulation, SM）是一种多输入多输出（MIMO）技术，它通过选择性地激活天线来传输信息，而不是像传统MIMO系统那样同时使用所有天线。SM旨在降低发射端的复杂度和功耗，同时保持或提升频谱效率。在SM中，每个天线对应一个特定的调制符号，发射端根据要传输的信息选择激活的天线，从而实现信息传输。通过这个技术加强了信息携带能力并且极大程度上避免了天线之间的串扰。</p>
+<h2 id="编码流程"><a href="#编码流程" class="headerlink" title="编码流程"></a>编码流程</h2><p>总算法框图：<br><img src="/img/%E7%A9%BA%E9%97%B4%E8%B0%83%E5%88%B6%E6%B5%81%E7%A8%8B.png" alt="img9"></p>
+<h3 id="发送"><a href="#发送" class="headerlink" title="发送"></a>发送</h3><p>如论文中图所示，我们先假设我们有两根发送天线和4根接送天线。那么我们将这个两个天线进行编码 分别为0，1.这样两个天线就能多携带log2（发送天线总数）的比特数。<br>假设我们一次发送三个比特，那么第一个比特就作为天线索引位，剩下两个比特用索引天线用4-QAM发送出去，假设这三个比特为 [0 1 1].按图即为第一根天线发送 [-1-i]的比特<br>第二天天线关闭不发射。 将这次发送信号以矩阵表示那么就是x_k&#x3D;[-1-i;0]</p>
+<p><img src="/img/%E7%A9%BA%E9%97%B4%E8%B0%83%E5%88%B6%E5%9B%BE%E4%BE%8B.png" alt="img1"></p>
+<h3 id="信道"><a href="#信道" class="headerlink" title="信道"></a>信道</h3><p>在通信系统中，我们假设信道模型为平坦衰落中的瑞利衰落和加性高斯白噪声（AWGN）。瑞利衰落是一种常见的无线信道模型，它描述了无线信道中由于多径传播和散射引起的信号衰减。加性高斯白噪声是一种常见的噪声模型，它描述了信道中由于电子设备的热噪声和其他随机因素引起的噪声。由于有2根发射天线和4根接收天线，因此每根发送天线传送到不同的接受天线总共有四种情况，所以瑞利信道的矩阵为4×2的矩阵。可以表示为y_reli&#x3D;H*x_k。2其中x_k表示发送矩阵，H表示瑞利矩阵。我们先假设此信道高斯白噪声为0；这里我们给出论文中的H矩阵和matlab代码。</p>
+<p><img src="/img/%E7%A9%BA%E9%97%B4%E8%B0%83%E5%88%B6_H%E7%9F%A9%E9%98%B5.png" alt="img5"><br><img src="/img/%E7%A9%BA%E9%97%B4%E8%B0%83%E5%88%B6_y.png" alt="img6"></p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">x=[<span class="number">-1</span>-<span class="built_in">i</span>;<span class="number">0</span>];</span><br><span class="line">H=[<span class="number">-0.5377</span><span class="number">-0.1229</span><span class="built_in">i</span>,<span class="number">-0.6175</span><span class="number">-0.15162</span>;</span><br><span class="line">   <span class="number">-0.5450</span><span class="number">-0.0964</span><span class="built_in">i</span>,<span class="number">-0.3271</span><span class="number">-0.0006</span><span class="built_in">i</span>;</span><br><span class="line">   <span class="number">0.4624</span><span class="number">-0.2680</span><span class="built_in">i</span> , <span class="number">0.2058</span>+<span class="number">0.3171</span><span class="built_in">i</span>;</span><br><span class="line">   <span class="number">0.2854</span><span class="number">-0.1493</span><span class="built_in">i</span> ,<span class="number">-0.5190</span><span class="number">-0.2767</span><span class="built_in">i</span>];</span><br><span class="line">   y=H*x;</span><br><span class="line"></span><br><span class="line"> <span class="comment">%y=  [0.414780000000000 + 0.660620000000000i</span></span><br><span class="line"><span class="number">0.448600000000000</span> + <span class="number">0.641400000000000</span><span class="built_in">i</span></span><br><span class="line"><span class="number">-0.730400000000000</span> - <span class="number">0.194400000000000</span><span class="built_in">i</span></span><br><span class="line"><span class="number">-0.434700000000000</span> - <span class="number">0.136100000000000</span><span class="built_in">i</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="接收与解码"><a href="#接收与解码" class="headerlink" title="接收与解码"></a>接收与解码</h3><p>算法框图:<br><img src="/img/%E7%A9%BA%E9%97%B4%E8%B0%83%E5%88%B6%E6%8E%A5%E6%94%B6%E7%AE%97%E6%B3%95%E6%A1%86%E5%9B%BE.png" alt="img5"></p>
+<p>此系统假设传送信道矩阵已知，所以当我们得到y时，我们要将g&#x3D;H’*y,这里的H’表示H的<strong>共轭转置矩阵</strong>。<del>（这里还没搞懂为什么要乘以共轭矩阵，现在的理解是算相关系数但是为什么这样算是相关系数还不清楚）</del>。<br>之后我们的到了矩阵g&#x3D;[-0.999929986400000 - 0.999929986400000i；-0.327108688000000 - 0.297826568000000i];,让我们对他取绝对值.<br>g_abs&#x3D;abs（g）&#x3D;[1.41411454819042;0.442380784360872];之后我们找到最大值，并找到最大值对应的索引，这样我们就得到了发送的索引位。之后我们就可以用4-QAM解调得到剩下的两个比特。这里最大值为为索引1，所以是第一根天线发送的信号，则信号位为g（1,1）&#x3D;-0.999929986400000 - 0.999929986400000i； 之后通过g1算欧式距离得知其应为[-1-i]。<br>所以解调信号为[0 1 1];符合发送。</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>这里提出我的思考</p>
+<ol>
+<li>为什么解调时是乘以H’矩阵，理论上来说换源矩阵要取H的逆矩阵，但是H不是满秩矩阵所以要通过其他方法，乘以H’矩阵是否与这想法有关。<br>2.通过matlab实验，这里的H矩阵是在有一定限制条件才能成立不然H矩阵就失效了。具体可以参考这篇论文<strong>Spatial Modulation: Optimal Detection and Performance Analysis</strong></li>
+</ol>
+<h2 id="整点二次元"><a href="#整点二次元" class="headerlink" title="整点二次元"></a>整点二次元</h2><p><img src="/img/3825e19545c6cb18fbe41b5805131937e3b22ce5.jpg@1192w.img" alt="img7"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">huangnv</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/01/07/%E7%A9%BA%E9%97%B4%E8%B0%83%E5%88%B6(Spatial%20Modulation)/">http://example.com/2025/01/07/%E7%A9%BA%E9%97%B4%E8%B0%83%E5%88%B6(Spatial%20Modulation)/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">幽乐净土</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/matlab/">matlab</a><a class="post-meta__tags" href="/tags/Spatial-Modulation/">Spatial Modulation</a><a class="post-meta__tags" href="/tags/%E4%BF%A1%E9%81%93%E7%BC%96%E7%A0%81/">信道编码</a></div><div class="post_share"><div class="social-share" data-image="/img/20210325202410_ac20a.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/06/16/%E4%B8%AA%E4%BA%BA%E7%AE%80%E5%8E%86/" title="个人简历"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">个人简历</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/02/22/turbo%E7%A0%81----%E5%AF%BC%E8%A8%80/" title="turbo码---（导言）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-02-22</div><div class="title">turbo码---（导言）</div></div></a></div><div><a href="/2024/02/23/turbo%E7%A0%81---%E7%BC%96%E7%A0%81(%E4%B8%80)---%E4%BA%A4%E7%BB%87%E5%99%A8/" title="turbo码---编码(一)---交织器"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-02-23</div><div class="title">turbo码---编码(一)---交织器</div></div></a></div><div><a href="/2024/02/24/turbo%E7%A0%81---%E7%BC%96%E7%A0%81(%E4%BA%8C)---%E5%8D%B7%E7%A7%AF%E7%A0%81/" title="turbo码---编码(二)---卷积码"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-02-24</div><div class="title">turbo码---编码(二)---卷积码</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/20210325202410_ac20a.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">huangnv</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我，即「断罪之皇女」，真名为菲谢尔，应命运的召唤，降临在此间。诶？你也是，异世界的旅人吗？那好吧，本皇女，恩许你同行。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">编码流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E9%80%81"><span class="toc-number">3.1.</span> <span class="toc-text">发送</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E9%81%93"><span class="toc-number">3.2.</span> <span class="toc-text">信道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E6%94%B6%E4%B8%8E%E8%A7%A3%E7%A0%81"><span class="toc-number">3.3.</span> <span class="toc-text">接收与解码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">思考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E7%82%B9%E4%BA%8C%E6%AC%A1%E5%85%83"><span class="toc-number">5.</span> <span class="toc-text">整点二次元</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/07/%E7%A9%BA%E9%97%B4%E8%B0%83%E5%88%B6(Spatial%20Modulation)/" title="空间调制（Spatial Modulation）">空间调制（Spatial Modulation）</a><time datetime="2025-01-07T04:00:00.000Z" title="发表于 2025-01-07 12:00:00">2025-01-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/16/%E4%B8%AA%E4%BA%BA%E7%AE%80%E5%8E%86/" title="个人简历">个人简历</a><time datetime="2024-06-16T04:00:00.000Z" title="发表于 2024-06-16 12:00:00">2024-06-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/22/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F--%E4%BC%AF%E5%BE%B7%E5%9B%BE%E4%B8%8E%E9%9B%B6%E6%9E%81%E7%82%B9/" title="信号与系统--伯德图与零极点">信号与系统--伯德图与零极点</a><time datetime="2024-05-22T04:00:00.000Z" title="发表于 2024-05-22 12:00:00">2024-05-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/24/turbo%E7%A0%81---%E7%BC%96%E7%A0%81(%E4%BA%8C)---%E5%8D%B7%E7%A7%AF%E7%A0%81/" title="turbo码---编码(二)---卷积码">turbo码---编码(二)---卷积码</a><time datetime="2024-02-24T04:00:00.000Z" title="发表于 2024-02-24 12:00:00">2024-02-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/23/turbo%E7%A0%81---%E7%BC%96%E7%A0%81(%E4%B8%80)---%E4%BA%A4%E7%BB%87%E5%99%A8/" title="turbo码---编码(一)---交织器">turbo码---编码(一)---交织器</a><time datetime="2024-02-23T04:00:00.000Z" title="发表于 2024-02-23 12:00:00">2024-02-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By huangnv</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
